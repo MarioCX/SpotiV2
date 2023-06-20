@@ -14,24 +14,7 @@ const redirectUri = "http://127.0.0.1:5500/SpotV2/playlistl.html";
 
 let codeVerifier = generateRandomString(128);
 
-generateCodeChallenge(codeVerifier).then((codeChallenge) => {
-  let state = generateRandomString(16);
-  let scope = "user-read-private user-read-email";
 
-  localStorage.setItem("code_verifier", codeVerifier);
-
-  let args = new URLSearchParams({
-    response_type: "code",
-    client_id: clientId,
-    scope: scope,
-    redirect_uri: redirectUri,
-    state: state,
-    code_challenge_method: "S256",
-    code_challenge: codeChallenge,
-  });
-
-  window.location = "https://accounts.spotify.com/authorize?" + args;
-});
 async function generateCodeChallenge(codeVerifier) {
   function base64encode(string) {
     return btoa(String.fromCharCode.apply(null, new Uint8Array(string)))
@@ -47,3 +30,24 @@ async function generateCodeChallenge(codeVerifier) {
   return base64encode(digest);
 }
 
+function login() {
+  generateCodeChallenge(codeVerifier).then((codeChallenge) => {
+    let state = generateRandomString(16);
+    let scope = "user-read-private user-read-email";
+  
+    localStorage.setItem("code_verifier", codeVerifier);
+  
+    let args = new URLSearchParams({
+      response_type: "code",
+      client_id: clientId,
+      scope: scope,
+      redirect_uri: redirectUri,
+      state: state,
+      code_challenge_method: "S256",
+      code_challenge: codeChallenge,
+    });
+  
+    window.location = "https://accounts.spotify.com/authorize?" + args;
+  });
+
+}

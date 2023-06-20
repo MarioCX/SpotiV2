@@ -1,46 +1,62 @@
-/* let codeVerifier = localStorage.getItem('code_verifier');
+var playlistFromSpoti;
+let codeVerifier = localStorage.getItem("code_verifier");
+
+const urlParams = new URLSearchParams(window.location.search);
+let code = urlParams.get("code");
 
 let body = new URLSearchParams({
-  grant_type: 'authorization_code',
+  grant_type: "authorization_code",
   code: code,
-  redirect_uri: redirectUri,
-  client_id: clientId,
-  code_verifier: codeVerifier
+  redirect_uri: "http://http://127.0.0.1:5500/SpotV2/playlistl.html",
+  client_id: "8232546c1fe64f439ac1ed2e991f58c2",
+  code_verifier: codeVerifier,
 });
 
-const response = fetch('https://accounts.spotify.com/api/token', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  body: body
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('HTTP status ' + response.status);
-    }
-    return response.json();
-  })
-  .then(data => {
-    localStorage.setItem('access_token', data.access_token);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-
-  async function getProfile(accessToken) {
-  let accessToken = localStorage.getItem('access_token');
-
-  const response = await fetch('https://api.spotify.com/v1/me', {
+async function updateToken() {
+  const response = fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
     headers: {
-      Authorization: 'Bearer ' + accessToken
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: body,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("HTTP status " + response.status);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("token ") + data;
+      localStorage.setItem("access_token", data.access_token);
+      getProfile();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+  console.log(response);
+}
+
+async function getProfile() {
+  let accessToken = localStorage.getItem("access_token");
+
+  const response = await fetch(
+    "https://api.spotify.com/v1/playlists/5HbNHADuYvl55kePbLEXmy",
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
     }
-  });
+  );
 
   const data = await response.json();
-} */
+  playlistFromSpoti = data;
+  console.log(playlistFromSpoti);
+}
 
-let playlist = {
+updateToken();
+
+/* let playlist = {
   collaborative: "false",
   description: "",
   external_urls: {
@@ -2573,4 +2589,4 @@ function goToSectionPlaylist(){
 
   playlistFavSection.style.display = "none";
   playlistSection.style.display = "block";
-}
+} */
