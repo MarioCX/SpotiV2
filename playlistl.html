@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoticruz </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="playlist.css">
+</head>
+
+<body>
+  <section class="firtsContainer">
+
+    <section class="menuPlayer">
+
+      <div class="avatarImg">
+        <img src="" alt="">
+        <span>SC</span>
+        <h1>Spoticruz</h1>
+        <h2 id="userPlaylist"></h2>
+      </div>
+      <div class="userplaylistsContainers">
+        <p>Playlist disponibles: </p>
+        <div class="playlistsContainers" onclick="goToSectionPlaylist()">
+          <p id="playlistNameMenu"></p>
+          <img src="" alt="" id="playlistImgMenu">
+        </div>
+        <div class="playlistsContainers" onclick="goToFav()">
+          <p>Favoritos</p>
+          <img src="https://i.scdn.co/image/ab67706c0000da84c3ab7c7c76a69f78f09880ca" alt="">
+        </div>
+        <div>
+          <h1>Demás</h1>
+        </div>
+      </div>
+
+
+    </section>
+
+    <section id="sectionPlaylist">
+      <div class="listHeader">
+        <img src="" alt="" id="playlistImg" class="playlistImg">
+        <div class="descPlay">
+          <h1 id="playlistName">Mi lista</h1>
+          <h2 id="songsTotal"></h2>
+          <h2 id="playlistOwner"></h2>
+        </div>
+      </div>
+
+      <!-- Tabla para mostrar playlist con botón para agregar a fav -->
+      <div class="tableContainer">
+        <table class="table table-hover table-dark" id="songTable">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Artista</th>
+              <th scope="col">Duración</th>
+              <th scope="col">Album</th>
+              <th scope="col">Favoritos</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody id="playlistTableBody" class="playlistTableBody">
+            <!-- ELEMENTOS CONSUMIDOS DESDE JS -->
+            <!--  <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td><button>Fav</button></td>
+              </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="sectionPlaylistFav" id="playlistFav">
+      <div class="listHeader">
+        <img src="https://i.scdn.co/image/ab67706c0000da84c3ab7c7c76a69f78f09880ca" alt="" class="playlistImg">
+        <h1>Mi lista de favoritos</h1>
+
+        <button onclick="goToSectionPlaylist()">PlayList 1</button>
+      </div>
+
+      <!-- Tabla para agregar favorito con opción de ordenamiento-->
+      <!--Tabla de playlist con favoritos-->
+      <div class="tableContainer">
+        <table class="table table-hover table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Artista</th>
+              <th scope="col">Duración</th>
+              <th scope="col">Album</th>
+              <th scope="col">Favoritos</th>
+            </tr>
+          </thead>
+          <tbody class="playlistTableBody">
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td><button>Eliminar</button></td>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </section>
+
+
+
+  <!-- Número de reproducciones -->
+  <!-- Alfabéticamente -->
+
+  <script src="playlist.mjs"></script>
+</body>
+
+</html>

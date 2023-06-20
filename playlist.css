@@ -1,0 +1,90 @@
+* {
+  overflow: hidden;
+}
+.firtsContainer {
+  display: flex;
+}
+
+.menuPlayer {
+  width: 20%;
+  background-color: grey;
+  overflow: auto;
+  color: white;
+  border: solid black 2px;
+  padding: 10px 0;
+}
+.avatarImg {
+  padding: 10px 0;
+}
+.avatarImg span{
+  border: solid black;
+  border-radius: 50%;
+  width: 10%;
+  height: auto;
+  padding: 5px;
+}
+/* .userplaylistsContainers {
+  
+} */
+.playlistsContainers {
+  display: flex;
+  align-items: center;
+  padding: 0 10px ;
+  box-shadow: 5px 2px 3px black;
+  margin-bottom: 10px;
+}
+.playlistsContainers p{
+  width: 60%;
+}
+.playlistsContainers img{
+  width: 40%;
+  height: auto;
+}
+#sectionPlaylist {
+  width: 80%;
+  height: 100vh;
+  background-color: grey;
+}
+.listHeader {
+  display: flex;
+  padding: 20px;
+  height: 45vh;
+  color: white;
+}
+/* .descPlay {
+
+} */
+.playlistImg {
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  height: 250px;
+  box-shadow: 5px 2px 3px black;
+}
+.tableContainer {
+  max-height: 55vh;
+  background-color: grey;
+  overflow-y: auto;
+}
+
+.table tr th {
+  text-align: center;
+}
+
+/* .playlistTableBody tr {
+} */
+.playlistTableBody tr th {
+  text-align: center;
+}
+.playlistTableBody tr td {
+  text-align: center;
+}
+.playlistTableBody tr td button {
+  border-radius: 5px;
+}
+#sectionPlaylistFav {
+  height: 100vh;
+  width: 80%;
+  background-color: grey;
+  display: none;
+}
