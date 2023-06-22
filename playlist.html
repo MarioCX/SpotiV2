@@ -23,16 +23,39 @@
       </div>
       <div class="userplaylistsContainers">
         <p>Playlist disponibles: </p>
-        <div class="playlistsContainers" onclick="goToSectionPlaylist()">
+        <div class="playlistsContainers" id="sectionPlaylistButtonList" onclick="goToFav()">
           <p id="playlistNameMenu"></p>
           <img src="" alt="" id="playlistImgMenu">
         </div>
-        <div class="playlistsContainers" onclick="goToFav()">
+        <div class="playlistsContainers" id="sectionPlaylistButtonFav" onclick="goToSectionPlaylist()">
           <p>Favoritos</p>
           <img src="https://i.scdn.co/image/ab67706c0000da84c3ab7c7c76a69f78f09880ca" alt="">
         </div>
-        <div>
-          <h1>Demás</h1>
+        <div class="reproducerContainer">
+          <h1>Reproductor</h1>
+          <div class="reproducer">
+            <img src="" alt="">
+            <svg class="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              <path
+                d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5z" />
+            </svg>
+            <svg class="button-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              <path
+                d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+            </svg>
+            <svg class="button" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-chevron-bar-right" viewBox="0 0 16 16">
+              <path
+                d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z" />
+            </svg>
+
+          </div>
+          <div class="control">
+            <div id="barra">
+              <div id="progreso"></div>
+            </div>
+            <p id="durationSong">2:45</p>
+          </div>
         </div>
       </div>
 
@@ -43,11 +66,12 @@
       <div class="listHeader">
         <img src="" alt="" id="playlistImg" class="playlistImg">
         <div class="descPlay">
-          <h1 id="playlistName">Mi lista</h1>
+          <h1 id="playlistName"></h1>
           <h2 id="songsTotal"></h2>
           <h2 id="playlistOwner"></h2>
         </div>
       </div>
+
 
       <!-- Tabla para mostrar playlist con botón para agregar a fav -->
       <div class="tableContainer">
@@ -60,7 +84,9 @@
               <th scope="col">Duración</th>
               <th scope="col">Album</th>
               <th scope="col">Favoritos</th>
-              <th scope="col">Opciones</th>
+              <!-- <th scope="col">Opciones</th> -->
+              <th scope="col"></th>
+
             </tr>
           </thead>
           <tbody id="playlistTableBody" class="playlistTableBody">
@@ -83,7 +109,6 @@
         <img src="https://i.scdn.co/image/ab67706c0000da84c3ab7c7c76a69f78f09880ca" alt="" class="playlistImg">
         <h1>Mi lista de favoritos</h1>
 
-        <button onclick="goToSectionPlaylist()">PlayList 1</button>
       </div>
 
       <!-- Tabla para agregar favorito con opción de ordenamiento-->
@@ -100,7 +125,7 @@
               <th scope="col">Favoritos</th>
             </tr>
           </thead>
-          <tbody class="playlistTableBody">
+          <tbody id="playlistTableBodyFav" class="playlistTableBody">
             <th scope="row">1</th>
             <td>Mark</td>
             <td>Otto</td>

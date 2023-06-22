@@ -9,34 +9,33 @@ function generateRandomString(length) {
   return text;
 }
 
-const clientId = "8232546c1fe64f439ac1ed2e991f58c2";
-const redirectUri = "http://127.0.0.1:5500/SpotV2/playlistl.html";
-
-let codeVerifier = generateRandomString(128);
-
-
 async function generateCodeChallenge(codeVerifier) {
   function base64encode(string) {
     return btoa(String.fromCharCode.apply(null, new Uint8Array(string)))
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '');
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
   }
 
   const encoder = new TextEncoder();
   const data = encoder.encode(codeVerifier);
-  const digest = await window.crypto.subtle.digest('SHA-256', data);
+  const digest = await window.crypto.subtle.digest("SHA-256", data);
 
   return base64encode(digest);
 }
+
+const clientId = "8232546c1fe64f439ac1ed2e991f58c2";
+const redirectUri = "http://127.0.0.1:5500/SpotV2/playlist.html";
+
+let codeVerifier = generateRandomString(128);
 
 function login() {
   generateCodeChallenge(codeVerifier).then((codeChallenge) => {
     let state = generateRandomString(16);
     let scope = "user-read-private user-read-email";
-  
+
     localStorage.setItem("code_verifier", codeVerifier);
-  
+
     let args = new URLSearchParams({
       response_type: "code",
       client_id: clientId,
@@ -46,8 +45,7 @@ function login() {
       code_challenge_method: "S256",
       code_challenge: codeChallenge,
     });
-  
+
     window.location = "https://accounts.spotify.com/authorize?" + args;
   });
-
 }
