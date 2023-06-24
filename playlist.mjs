@@ -75,17 +75,19 @@ function imprimePlaylist() {
 
     // Crear una nueva fila (tr)
     const tr = document.createElement("tr");
-    // tr.setAttribute("onClick", `playSong(${index})`);
-    tr.setAttribute("onClick", `playSong(${index})`);
+  
 
     // Crear las celdas (td) con los datos correspondientes del numSong
     const numSong = document.createElement("th");
     numSong.textContent = songCount;
     numSong.setAttribute("id","idSong")
 
-    const playSongButton = document.createElement("th");
+    const playSongButton = document.createElement("button");
     playSongButton.textContent = ("▶️");
-    playSongButton.setAttribute("id","idSongPlay")
+    playSongButton.setAttribute("onClick", `playSong(${index})`);
+    const numSongButton = document.createElement("th");
+    numSongButton.appendChild(playSongButton);
+    numSongButton.setAttribute("id","idSongPlay")
 
     //Crea las celdas (td) con los datos correspondientes al nombre de la canción
     const nameSong = document.createElement("td");
@@ -119,7 +121,7 @@ function imprimePlaylist() {
     const favButton = document.createElement("button");
     favButton.setAttribute("id", "liveAlertBtn");
     favButton.setAttribute("onclick", `songFav(${index})`);
-    favButton.textContent = "Fav";
+    favButton.textContent = "❤️";
 
     //Asigna el elemento button a un td
     const buttonCell = document.createElement("td");
@@ -144,7 +146,7 @@ function imprimePlaylist() {
 
     //Imprime valores en tr, orden de valores
     tr.appendChild(numSong);
-    tr.appendChild(playSongButton);
+    tr.appendChild(numSongButton);
     tr.appendChild(nameSong);
     tr.appendChild(artistSong);
     tr.appendChild(durationSong);
@@ -250,9 +252,17 @@ function showPlaylistCustom() {
     songCountFav++;
     const tr = document.createElement("tr");
 
-    // Crear las celdas (td) con los datos correspondientes del numSong
+    // Crear las celdas (th) con los datos correspondientes del numSong
     const numSong = document.createElement("th");
     numSong.textContent = songCountFav;
+    numSong.setAttribute("id","idSong")
+
+    const playSongButton = document.createElement("button");
+    playSongButton.textContent = ("▶️");
+    playSongButton.setAttribute("onClick", `playSong(${index})`);
+    const numSongButton = document.createElement("th");
+    numSongButton.appendChild(playSongButton);
+    numSongButton.setAttribute("id","idSongPlay")
 
     //Crea las celdas (td) con los datos correspondientes a la duración de la canción
     const durationSong = document.createElement("td");
@@ -283,26 +293,21 @@ function showPlaylistCustom() {
     // Crear las celdas (td) con el botón eliminar
     const deleteButton = document.createElement("button");
     deleteButton.setAttribute("onclick", `deleteSong(${index})`);
-    deleteButton.textContent = "Eliminar";
+    deleteButton.setAttribute("type","button");
+    deleteButton.setAttribute("class","btn btn-dark");
+    deleteButton.textContent = "🗑️ Eliminar";
     const buttonCellDelete = document.createElement("td");
     buttonCellDelete.appendChild(deleteButton);
 
-    //Crea las celdas (td) con el botón reproducir
-    //Crea el elemento (button)
-    const playButton = document.createElement("button");
-    playButton.setAttribute("onClick", `playSong(${index})`);
-    playButton.textContent = "Reproducir";
-    const buttonCellPlay = document.createElement("td");
-    buttonCellPlay.appendChild(playButton);
 
     //Asignación de elementos al tr aquí está el orden de columnas
     tr.appendChild(numSong);
+    tr.appendChild(numSongButton);
     tr.appendChild(tdCancion);
     tr.appendChild(tdArtis);
     tr.appendChild(durationSong);
     tr.appendChild(tdAlbum);
     tr.appendChild(buttonCellDelete);
-    tr.appendChild(buttonCellPlay);
 
     document.getElementById("playlistTableBodyFav").appendChild(tr);
   });

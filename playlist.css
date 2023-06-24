@@ -3,24 +3,24 @@
 }
 .firtsContainer {
   display: flex;
-  background-image: linear-gradient(
-    130deg in oklab,
-    rgb(10% 27% 11%) 10% 10%,
-    oklch(50% 0.05 146) 50%,
-    color(srgb-linear 38% 45% 32%) 100%
-  );
+  background-image: 
+    linear-gradient(
+      132deg in oklab, 
+      rgb(0% 0% 0%) 0%, rgb(0% 0% 30%) 50%, rgb(2% 23% 69%) 100%
+    )
+  ;
 }
 
 .menuPlayer {
   margin: 10px 0 10px 10px;
   width: 20%;
   height: 98vh;
-  background-image: linear-gradient(
-    130deg in oklab,
-    rgb(10% 27% 11%) 10% 10%,
-    oklch(50% 0.05 146) 50%,
-    color(srgb-linear 38% 45% 32%) 100%
-  );
+  background-image: 
+    linear-gradient(
+      132deg in oklab, 
+      rgb(0% 0% 0%) 0%, rgb(0% 0% 30%) 50%, rgb(2% 23% 69%) 100%
+    )
+  ;
   border-radius: 10px;
   overflow: hidden;
   color: white;
@@ -41,9 +41,8 @@
   
 } */
 .playlistsContainers::selection {
-  background-color: rgb(73, 73, 73);
   border-radius: 10px;
-  border: solid 1px rgb(81, 81, 81);
+  border: solid 1px black;
 }
 .playlistsContainers {
   width: 95%;
@@ -51,7 +50,7 @@
   display: flex;
   align-items: center;
   padding: 0 10px;
-  border: solid 1px rgb(103, 102, 102);
+  border: solid 1px black;
   box-shadow: 5px 2px 3px black;
   margin: 10px auto;
 }
@@ -100,7 +99,7 @@
   box-shadow: 5px 2px 3px black;
   width: 95%;
   margin: 20px auto;
-  border: solid 1px gray;
+  border: solid 1px black;
 }
 .reproducerC {
   align-items: center;
@@ -144,7 +143,7 @@
   position: relative;
   height: 5px;
   width: 70%;
-  border: solid 1px #ccc;
+  border: solid 1px black;
   border-radius: 10px;
   margin-right: 10px;
 }
@@ -173,10 +172,8 @@
   overflow-y: auto;
 }
 
-#idSongPlay{
-  display: none;
-  background-color: grey;
-  
+#idSongPlay {
+  display: none;  
 }
 .playlistTableBody tr{
 
@@ -206,4 +203,6 @@ align-items: center;
 justify-content: center;
 }
 #liveAlertBtn {
+  margin: 0 20px;
+  background-color: transparent;
 }
