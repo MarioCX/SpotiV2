@@ -72,6 +72,21 @@
     #a6b399 100%
   ); */
 }
+#liveAlertPlaceholder {
+  width: 30%;
+  position: fixed;
+  bottom: 30px;
+  right: 10px;
+  z-index: 9999;
+}
+#liveAlertPlaceholder2 {
+  width: 30%;
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 9999;
+}
+
 .listHeader {
   display: flex;
   padding: 20px;
@@ -84,15 +99,22 @@
   border-radius: 10px;
   box-shadow: 5px 2px 3px black;
   width: 95%;
-  margin: 40% auto;
+  margin: 20px auto;
   border: solid 1px gray;
 }
-.reproducer {
-  display: flex;
+.reproducerC {
   align-items: center;
   padding: 0 15px;
   overflow: hidden;
 }
+#reproducerImg {
+  height: 250px;
+  width: auto;
+  box-shadow: 5px 2px 3px black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
 .button {
   width: 100px;
   height: 40px;
@@ -151,24 +173,17 @@
   overflow-y: auto;
 }
 
-.table tr th {
-  text-align: center;
-}
 
 /* .playlistTableBody tr {
 } */
-.playlistTableBody tr th {
-  text-align: center;
-}
-.playlistTableBody tr td {
-  text-align: left;
-  height: 10px;
-}
-.playlistTableBody tr td button {
-  border-radius: 5px;
-}
+
 #sectionPlaylistFav {
   height: 100vh;
   width: 80%;
   display: none;
+}
+#songTable {
+}
+#songTable thead {
+  text-align: center;
 }

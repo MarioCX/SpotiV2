@@ -109,6 +109,7 @@ function imprimePlaylist() {
 
     //Crea el elemento (button)
     const favButton = document.createElement("button");
+    favButton.setAttribute("id", "liveAlertBtn");
     favButton.setAttribute("onclick", `songFav(${index})`);
     favButton.textContent = "Fav";
 
@@ -118,8 +119,8 @@ function imprimePlaylist() {
 
     //Crea el elemento (button)
     const deleteButton = document.createElement("button");
-    deleteButton.setAttribute("onClick", `songDelete(${index})`);
-    deleteButton.textContent = "delete";
+    deleteButton.setAttribute("onClick", `playSong(${index})`);
+    deleteButton.textContent = "Reproducir";
 
     //Asigna el elemento button a un td
     const buttonCellDelete = document.createElement("td");
@@ -138,26 +139,52 @@ function imprimePlaylist() {
     tr.appendChild(durationSong);
     tr.appendChild(albumSong);
     tr.appendChild(buttonCell);
-    // tr.appendChild(buttonCellDelete);
-    tr.appendChild(reproducer);
+    tr.appendChild(buttonCellDelete);
+    // tr.appendChild(reproducer);
 
     // Agregar la fila al tbody
     tbody.appendChild(tr);
   });
 }
 
+function playSong(indice) {
+  reproducerImg.setAttribute("src",`${playlistFromSpoti.tracks.items[indice].track.album.images[1].url}
+  `)
+  reproducer.setAttribute(
+    "src",
+    `${playlistFromSpoti.tracks.items[indice].track.preview_url}
+`
+  );
+  console.log("Si funciono");
+}
+
+// Funciones para añadir canciones a FavList
 function songDelete(index) {
   playlistFromSpoti.splice(index, 1);
   imprimePlaylist();
 }
-
 function songFav(indice) {
   const newSong = playlistFromSpoti.tracks.items[indice];
   playlistCustom.push(newSong);
+  nameSong = playlistFromSpoti.tracks.items[indice].track.name;
   showPlaylistCustom();
   console.log("Funciono y añado a fav");
+
+  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+  const appendAlert = (message, type) => {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      "</div>",
+    ].join("");
+    alertPlaceholder.append(wrapper);
+  };
+  appendAlert("Canción " + nameSong + " agregada a favoritos", "success");
 }
 
+//Funcion para mostrar FavList
 function showPlaylistCustom() {
   let songCountFav = 0;
   document.getElementById("playlistTableBodyFav").innerHTML = "";
@@ -165,10 +192,6 @@ function showPlaylistCustom() {
   playlistCustom.forEach((cancion, index) => {
     songCountFav++;
     const tr = document.createElement("tr");
-    const tdCancion = document.createElement("td");
-    const tdAlbum = document.createElement("td");
-    const tdArtis = document.createElement("td");
-    const deleteButton = document.createElement("button");
 
     // Crear las celdas (td) con los datos correspondientes del numSong
     const numSong = document.createElement("th");
@@ -186,33 +209,69 @@ function showPlaylistCustom() {
       durationSongSegundos.toString().padStart(2, "0");
     durationSong.textContent = durationSongMS;
 
-    // asign vales de mi cancion a elementos html
+   // Crear las celdas (td) con los datos correspondientes al nombre de la cancion
+    const tdCancion = document.createElement("td");
     tdCancion.textContent = cancion.track.name;
+
+    // Crear las celdas (td) con los datos correspondientes al nombre(s) del artista
+    const tdArtis = document.createElement("td");
     cancion.track.artists.forEach((artista) => {
       tdArtis.textContent = artista.name;
     });
+
+    // Crear las celdas (td) con los datos correspondientes del nombre del album
+    const tdAlbum = document.createElement("td");
     tdAlbum.textContent = cancion.track.album.name;
 
+    // Crear las celdas (td) con el botón eliminar 
+    const deleteButton = document.createElement("button");
     deleteButton.setAttribute("onclick", `deleteSong(${index})`);
-    deleteButton.textContent = "Delete";
+    deleteButton.textContent = "Eliminar";
     const buttonCellDelete = document.createElement("td");
     buttonCellDelete.appendChild(deleteButton);
 
+    //Crea las celdas (td) con el botón reproducir
+    //Crea el elemento (button)
+    const playButton = document.createElement("button");
+    playButton.setAttribute("onClick", `playSong(${index})`);
+    playButton.textContent = "Reproducir";
+    const buttonCellPlay = document.createElement("td");
+    buttonCellPlay.appendChild(playButton);
+
+    //Asignación de elementos al tr aquí está el orden de columnas
     tr.appendChild(numSong);
     tr.appendChild(tdCancion);
     tr.appendChild(tdArtis);
     tr.appendChild(durationSong);
     tr.appendChild(tdAlbum);
     tr.appendChild(buttonCellDelete);
+    tr.appendChild(buttonCellPlay);
 
     document.getElementById("playlistTableBodyFav").appendChild(tr);
   });
 }
+
+//Función que elimina canciones de lista de favoritos
 function deleteSong(index) {
   playlistCustom.splice(index, 1);
   showPlaylistCustom();
+  nameSong = playlistFromSpoti.tracks.items[index].track.name;
+
+  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+  const appendAlert = (message, type) => {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+      `<div class="alert alert-danger alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      "</div>",
+    ].join("");
+    alertPlaceholder.append(wrapper);
+  };
+  appendAlert("Canción " + nameSong + " eliminada de favoritos", "success");
 }
 
+//Función que redirije a lista de favoritos
 function goToFav() {
   const playlistSection = document.getElementById("sectionPlaylistFav");
   const playlistFavSection = document.getElementById("sectionPlaylist");
@@ -229,6 +288,7 @@ function goToFav() {
   playlistFavSectionButton.style.backgroundColor = "transparent";
 }
 
+//Función que redirije a Playlist importada
 function goToSectionPlaylist() {
   const playlistFavSection = document.getElementById("sectionPlaylist");
   const playlistSection = document.getElementById("sectionPlaylistFav");
