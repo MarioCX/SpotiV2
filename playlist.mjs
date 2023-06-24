@@ -49,6 +49,7 @@ async function getProfile() {
 }
 updateToken();
 
+// Función que imprime playlist
 function imprimePlaylist() {
   document.getElementById("playlistTableBody").innerHTML = "";
 
@@ -74,10 +75,17 @@ function imprimePlaylist() {
 
     // Crear una nueva fila (tr)
     const tr = document.createElement("tr");
+    // tr.setAttribute("onClick", `playSong(${index})`);
+    tr.setAttribute("onClick", `playSong(${index})`);
 
     // Crear las celdas (td) con los datos correspondientes del numSong
     const numSong = document.createElement("th");
     numSong.textContent = songCount;
+    numSong.setAttribute("id","idSong")
+
+    const playSongButton = document.createElement("th");
+    playSongButton.textContent = ("▶️");
+    playSongButton.setAttribute("id","idSongPlay")
 
     //Crea las celdas (td) con los datos correspondientes al nombre de la canción
     const nameSong = document.createElement("td");
@@ -115,7 +123,9 @@ function imprimePlaylist() {
 
     //Asigna el elemento button a un td
     const buttonCell = document.createElement("td");
+    buttonCell.setAttribute("id","liveAlertBtntd")
     buttonCell.appendChild(favButton);
+
 
     //Crea el elemento (button)
     const deleteButton = document.createElement("button");
@@ -126,20 +136,21 @@ function imprimePlaylist() {
     const buttonCellDelete = document.createElement("td");
     buttonCellDelete.appendChild(deleteButton);
 
-    const player = document.createElement("audio");
+    /*     const player = document.createElement("audio");
     player.setAttribute("src", `${track.track.preview_url}`);
     player.setAttribute("controls", "controls");
     const reproducer = document.createElement("td");
-    reproducer.appendChild(player);
+    reproducer.appendChild(player); */
 
     //Imprime valores en tr, orden de valores
     tr.appendChild(numSong);
+    tr.appendChild(playSongButton);
     tr.appendChild(nameSong);
     tr.appendChild(artistSong);
     tr.appendChild(durationSong);
     tr.appendChild(albumSong);
     tr.appendChild(buttonCell);
-    tr.appendChild(buttonCellDelete);
+    // tr.appendChild(buttonCellDelete);
     // tr.appendChild(reproducer);
 
     // Agregar la fila al tbody
@@ -147,23 +158,54 @@ function imprimePlaylist() {
   });
 }
 
-function playSong(indice) {
-  reproducerImg.setAttribute("src",`${playlistFromSpoti.tracks.items[indice].track.album.images[1].url}
-  `)
-  reproducer.setAttribute(
-    "src",
-    `${playlistFromSpoti.tracks.items[indice].track.preview_url}
-`
-  );
-  console.log("Si funciono");
-}
-
-// Funciones para añadir canciones a FavList
+// Funciones para borrar canciones de FavList
 function songDelete(index) {
   playlistFromSpoti.splice(index, 1);
   imprimePlaylist();
 }
+
+// Función añade a fav con validación
 function songFav(indice) {
+  const newSong = playlistFromSpoti.tracks.items[indice];
+  if (existSong(newSong)) {
+    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+  const appendAlert = (message, type) => {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+      `<div class="alert alert-danger alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      "</div>",
+    ].join("");
+    alertPlaceholder.append(wrapper);
+  };
+  appendAlert("Canción " + nameSong + " ya está en favoritos");
+  } else {
+    const newSong = playlistFromSpoti.tracks.items[indice];
+    playlistCustom.push(newSong);
+    nameSong = playlistFromSpoti.tracks.items[indice].track.name;
+    showPlaylistCustom();
+
+    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+    const appendAlert = (message, type) => {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        "</div>",
+      ].join("");
+      alertPlaceholder.append(wrapper);
+    };
+    appendAlert("Canción " + nameSong + " agregada a favoritos", "success");
+  }
+}
+function existSong(song) {
+  return playlistCustom.includes(song);
+}
+
+// Función añade a fav sin validación
+/* function songFav(indice) {
   const newSong = playlistFromSpoti.tracks.items[indice];
   playlistCustom.push(newSong);
   nameSong = playlistFromSpoti.tracks.items[indice].track.name;
@@ -182,8 +224,23 @@ function songFav(indice) {
     alertPlaceholder.append(wrapper);
   };
   appendAlert("Canción " + nameSong + " agregada a favoritos", "success");
-}
+} */
 
+// Función para consumir audio en el reproductor desde botón de cada canción
+function playSong(indice) {
+  reproducerImg.setAttribute(
+    "src",
+    `${playlistFromSpoti.tracks.items[indice].track.album.images[1].url}
+  `
+  );
+  reproducer.setAttribute(
+    "src",
+    `${playlistFromSpoti.tracks.items[indice].track.preview_url}
+`
+  );
+  reproducer.play();
+  console.log("Si funciono");
+}
 //Funcion para mostrar FavList
 function showPlaylistCustom() {
   let songCountFav = 0;
@@ -209,7 +266,7 @@ function showPlaylistCustom() {
       durationSongSegundos.toString().padStart(2, "0");
     durationSong.textContent = durationSongMS;
 
-   // Crear las celdas (td) con los datos correspondientes al nombre de la cancion
+    // Crear las celdas (td) con los datos correspondientes al nombre de la cancion
     const tdCancion = document.createElement("td");
     tdCancion.textContent = cancion.track.name;
 
@@ -223,7 +280,7 @@ function showPlaylistCustom() {
     const tdAlbum = document.createElement("td");
     tdAlbum.textContent = cancion.track.album.name;
 
-    // Crear las celdas (td) con el botón eliminar 
+    // Crear las celdas (td) con el botón eliminar
     const deleteButton = document.createElement("button");
     deleteButton.setAttribute("onclick", `deleteSong(${index})`);
     deleteButton.textContent = "Eliminar";

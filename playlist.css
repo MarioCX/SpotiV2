@@ -22,7 +22,7 @@
     color(srgb-linear 38% 45% 32%) 100%
   );
   border-radius: 10px;
-  overflow: auto;
+  overflow: hidden;
   color: white;
   border: solid black 2px;
   padding: 10px 0;
@@ -173,9 +173,23 @@
   overflow-y: auto;
 }
 
+#idSongPlay{
+  display: none;
+  background-color: grey;
+  
+}
+.playlistTableBody tr{
 
-/* .playlistTableBody tr {
-} */
+}
+.playlistTableBody tr:hover {
+height: 100%;
+  #idSong{
+    display: none;
+  }
+  #idSongPlay{
+    display: block;
+  }
+}
 
 #sectionPlaylistFav {
   height: 100vh;
@@ -186,4 +200,10 @@
 }
 #songTable thead {
   text-align: center;
+}
+#liveAlertBtntd {
+align-items: center;
+justify-content: center;
+}
+#liveAlertBtn {
 }
