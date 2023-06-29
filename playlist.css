@@ -93,6 +93,10 @@
   color: white;
   margin-bottom: 10px;
 }
+#reproducer {
+  width: 95%;
+
+}
 .reproducerContainer {
   text-align: center;
   border-radius: 10px;
@@ -107,8 +111,8 @@
   overflow: hidden;
 }
 #reproducerImg {
-  height: 250px;
-  width: auto;
+  height: auto;
+  width: 95%;
   box-shadow: 5px 2px 3px black;
   border-radius: 10px;
   margin-bottom: 10px;

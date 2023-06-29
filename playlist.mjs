@@ -75,19 +75,18 @@ function imprimePlaylist() {
 
     // Crear una nueva fila (tr)
     const tr = document.createElement("tr");
-  
 
     // Crear las celdas (td) con los datos correspondientes del numSong
     const numSong = document.createElement("th");
     numSong.textContent = songCount;
-    numSong.setAttribute("id","idSong")
+    numSong.setAttribute("id", "idSong");
 
     const playSongButton = document.createElement("button");
-    playSongButton.textContent = ("▶️");
+    playSongButton.textContent = "▶️";
     playSongButton.setAttribute("onClick", `playSong(${index})`);
     const numSongButton = document.createElement("th");
     numSongButton.appendChild(playSongButton);
-    numSongButton.setAttribute("id","idSongPlay")
+    numSongButton.setAttribute("id", "idSongPlay");
 
     //Crea las celdas (td) con los datos correspondientes al nombre de la canción
     const nameSong = document.createElement("td");
@@ -125,9 +124,8 @@ function imprimePlaylist() {
 
     //Asigna el elemento button a un td
     const buttonCell = document.createElement("td");
-    buttonCell.setAttribute("id","liveAlertBtntd")
+    buttonCell.setAttribute("id", "liveAlertBtntd");
     buttonCell.appendChild(favButton);
-
 
     //Crea el elemento (button)
     const deleteButton = document.createElement("button");
@@ -171,17 +169,17 @@ function songFav(indice) {
   const newSong = playlistFromSpoti.tracks.items[indice];
   if (existSong(newSong)) {
     const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-  const appendAlert = (message, type) => {
-    const wrapper = document.createElement("div");
-    wrapper.innerHTML = [
-      `<div class="alert alert-danger alert-dismissible" role="alert">`,
-      `   <div>${message}</div>`,
-      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-      "</div>",
-    ].join("");
-    alertPlaceholder.append(wrapper);
-  };
-  appendAlert("Canción " + nameSong + " ya está en favoritos");
+    const appendAlert = (message, type) => {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = [
+        `<div class="alert alert-danger alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        "</div>",
+      ].join("");
+      alertPlaceholder.append(wrapper);
+    };
+    appendAlert("Canción " + nameSong + " ya está en favoritos");
   } else {
     const newSong = playlistFromSpoti.tracks.items[indice];
     playlistCustom.push(newSong);
@@ -248,21 +246,27 @@ function showPlaylistCustom() {
   let songCountFav = 0;
   document.getElementById("playlistTableBodyFav").innerHTML = "";
 
+  playlistNameFav.textContent = "Playlist: Favoritos";
+  playlistOwnerFav.textContent = "Autor: Mario Cx";
+  songsTotalFav.textContent = "Total de canciones: " + playlistCustom.length;  
+
+
   playlistCustom.forEach((cancion, index) => {
     songCountFav++;
     const tr = document.createElement("tr");
 
+
     // Crear las celdas (th) con los datos correspondientes del numSong
     const numSong = document.createElement("th");
     numSong.textContent = songCountFav;
-    numSong.setAttribute("id","idSong")
+    numSong.setAttribute("id", "idSong");
 
     const playSongButton = document.createElement("button");
-    playSongButton.textContent = ("▶️");
+    playSongButton.textContent = "▶️";
     playSongButton.setAttribute("onClick", `playSong(${index})`);
     const numSongButton = document.createElement("th");
     numSongButton.appendChild(playSongButton);
-    numSongButton.setAttribute("id","idSongPlay")
+    numSongButton.setAttribute("id", "idSongPlay");
 
     //Crea las celdas (td) con los datos correspondientes a la duración de la canción
     const durationSong = document.createElement("td");
@@ -293,12 +297,11 @@ function showPlaylistCustom() {
     // Crear las celdas (td) con el botón eliminar
     const deleteButton = document.createElement("button");
     deleteButton.setAttribute("onclick", `deleteSong(${index})`);
-    deleteButton.setAttribute("type","button");
-    deleteButton.setAttribute("class","btn btn-dark");
+    deleteButton.setAttribute("type", "button");
+    deleteButton.setAttribute("class", "btn btn-dark");
     deleteButton.textContent = "🗑️ Eliminar";
     const buttonCellDelete = document.createElement("td");
     buttonCellDelete.appendChild(deleteButton);
-
 
     //Asignación de elementos al tr aquí está el orden de columnas
     tr.appendChild(numSong);
